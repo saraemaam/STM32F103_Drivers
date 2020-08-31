@@ -19,12 +19,5 @@
 #define EXTI_MODE   RISING	                                      
 
 
-
-
-
-
-
-
-
 #endif 
 

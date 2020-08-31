@@ -11,8 +11,47 @@
 #include "EXTI_config.h "
 #include "EXTI_private.h"
 
+static void(*EXTI0_CallBack)(void) = NULL ;
+
 void MEXTI_voidInit ()
-{
+{   
+    /*External interrupt Lines */
+    #if EXTI_LINE ==   LINE0
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE1
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE2
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE3
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE4
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE5
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE6
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE7
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE8
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE9
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE10
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE11
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE12
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE13
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE14
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#elif EXTI_LINE == LINE15
+	SET_BIT( EXTI -> IMR , EXTI_LINE );
+	#else 
+		#error ("Wrong line choice !! " )
+	#endif
+	/*External interrupt sense mode */
 	#if EXTI_MODE == RISING 
 	SET_BIT( EXTI -> RTSR , EXTI_LINE );
 	#elif EXTI_MODE == FALLING 
@@ -21,33 +60,54 @@ void MEXTI_voidInit ()
 	SET_BIT( EXTI -> FTSR , EXTI_LINE );
 	SET_BIT( EXTI -> RTSR , EXTI_LINE );
 	#else 
-		#error "Wrong mode and line choice "
+		#error ("Wrong mode choice ")
 	#endif
+	
 	/*Disable interrupt */
-	CLR_BIT(EXTI -> IMR , Copy_u8Line ) ;
+	CLR_BIT(EXTI -> IMR , Copy_u8EXTILine ) ;
 }
-void MEXTI_voidEnableEXTI( u8 Copy_u8Line )
+
+void MEXTI_voidEnableEXTI( u8 Copy_u8EXTILine )
 {
-	SET_BIT(EXTI -> IMR , Copy_u8Line ) ;
+	SET_BIT(EXTI -> IMR , Copy_u8EXTILine) ;
 }
-void MEXTI_voidDisableEXTI( u8 Copy_u8Line )
+
+void MEXTI_voidDisableEXTI( u8 Copy_u8EXTILine )
 {
-	CLR_BIT(EXTI -> IMR , Copy_u8Line ) ;
+	CLR_BIT(EXTI -> IMR , Copy_u8EXTILine ) ;
 }
-void MEXTI_voidSwTrigger  (u8 Copy_u8Line)
+
+void MEXTI_voidSwTrigger  (u8 Copy_u8EXTILine)
 {
-	SET_BIT (EXTI -> SWIER , Copy_u8Line );
+	/*Enable interrupt on this Line*/
+	SET_BIT( EXTI -> IMR , Copy_u8EXTILine );
+	/**/
+	SET_BIT (EXTI -> SWIER , Copy_u8EXTILine );
 }
-void MEXTI_voidSetSignalLatch(u8 Copy_u8Line , u8 Copy_u8Mode )
+
+void MEXTI_voidSetSignalLatch(u8 Copy_u8EXTILine , u8 Copy_u8EXTISenseMode )
 {
 switch (Copy_u8Mode){
 	case RISING    :  SET_BIT( EXTI -> RTSR , EXTI_LINE ); break;
 	case FALLING   :  SET_BIT( EXTI -> FTSR , EXTI_LINE ); break;
 	case ON_CHANGE :  SET_BIT( EXTI -> RTSR , EXTI_LINE );
 	                  SET_BIT( EXTI -> FTSR , EXTI_LINE ); break;
-					  
-	
-	
+					  	
 }	
+SET_BIT(EXTI -> IMR , Copy_u8EXTILine ) ;
+
+}
+
+void MEXTI_voidSetCallBack (void (*ptr)(void))
+{
 	
+	EXTI0_CallBack = ptr ;
+}
+void EXTI_IRQHandler (void)
+{
+	
+EXTI0_CallBack ();
+ 
+ /*Clear pending bit */
+ SET_BIT( EXTI -> PR , 0 );
 }
