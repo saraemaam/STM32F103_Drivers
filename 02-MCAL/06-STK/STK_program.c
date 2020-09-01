@@ -8,8 +8,9 @@
 #include"BIT_MATH.h"
 
 #include "STK_interface.h"
-#include "STK_private.h"
 #include "STK_config.h"
+#include "STK_private.h"
+
 
 /*Define Callback Global variable*/
 static void(*MSTK_CallBack)(void);
@@ -21,11 +22,12 @@ void MSTK_voidInit()
 	#if   MSTK_CLK_SRC == MSTK_SRC_AHB 
 	/*Disable SysTick - Disable interrupt - Set Clock Source AHB */
 	MSTK->STK_CTRL = 0x00000004 ;
-	#elif MSTK_CLK_SRC = MSTK_SRC_AHB_DIV_8
+
+	#elif MSTK_CLK_SRC == MSTK_SRC_AHB_DIV_8
 	/*Disable SysTick - Disable interrupt - Set Clock Source AHB divided by 8 */
 	MSTK->STK_CTRL = 0 ;
 	#else
-	      #error ("Wrong Clock source Choice ")
+#error("You chosed Wrong Clock type")
 	#endif
 }
 void MSTK_voidSetBusyWait(u32 Copy_u32Ticks )
@@ -35,7 +37,7 @@ void MSTK_voidSetBusyWait(u32 Copy_u32Ticks )
 	/*Start Timer*/
 	SET_BIT(MSTK->STK_CTRL , ENABLE_BIT );
 	/*Wait till Flag is Raised */
-	while((GET_BIT( MSTK->STK_CTRL , COUNT_FLAG ) == 0);
+	while((GET_BIT( MSTK->STK_CTRL , COUNT_FLAG ) == 0));
 	
 	/*Stop Timer*/
 	CLR_BIT(MSTK->STK_CTRL , ENABLE_BIT );
@@ -59,7 +61,7 @@ void MSTK_voidSetIntervalSingle  ( u32 Copy_u32Ticks , void (*Copy_ptr )(void) )
 	MSTK_u8ModeOfInterval = MSTK_SINGLE_INTERVAL ;
 	
 	/*Enable interrupt */
-	SET_BIT( STK->STK_CTRL , TICK_INT);
+	SET_BIT( MSTK->STK_CTRL , TICK_INT);
 	
 }
 
@@ -78,7 +80,7 @@ void MTSK_voidSetIntervalPeriodic( u32 Copy_u32Ticks , void (*Copy_ptr )(void))
 	MSTK_u8ModeOfInterval = MSTK_PERIODIC_INTERVAL ;
 	
 	/*Enable interrupt */
-	SET_BIT( STK->STK_CTRL , TICK_INT);
+	SET_BIT( MSTK->STK_CTRL , TICK_INT);
 }
 
 void MTSK_voidStopTimer(void){
@@ -104,32 +106,26 @@ u32  MTSK_u32GetRemainingTime(void){
 	
   u32 Local_u32RemainingTime ;
 
-  Local_u32ElapsedTime = MSTK->STK_VAL ;
+  Local_u32RemainingTime = MSTK-> STK_VAL ;
   
   return Local_u32RemainingTime;
 }
 
 void SysTick_Handler (void)
 {	
- 
-  u8 Local_u8Temporary ;
-  
+	u8   Local_u8Temporary ;
   if (MSTK_u8ModeOfInterval == MSTK_SINGLE_INTERVAL )
   {
     /*Disable Interrupt */
 	CLR_BIT( MSTK->STK_CTRL ,TICK_INT );
-	
 	/*Stop Timer*/
 	CLR_BIT(MSTK->STK_CTRL , ENABLE_BIT );
 	MSTK->STK_LOAD = 0 ;
 	MSTK->STK_VAL  = 0 ;
   }
-  
     /*Call Back notification */
     MSTK_CallBack();
-    
 	/*Clear Interrupt Flag*/
-	
-	Local_u8Temporary = GET_BIT (MSTK -> STK_CTRL , COUNT_FLAG );
+  Local_u8Temporary = GET_BIT (MSTK -> STK_CTRL , COUNT_FLAG );
 
 }
