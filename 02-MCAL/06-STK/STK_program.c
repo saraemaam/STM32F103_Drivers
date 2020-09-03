@@ -48,6 +48,11 @@ void MSTK_voidSetBusyWait(u32 Copy_u32Ticks )
 
 void MSTK_voidSetIntervalSingle  ( u32 Copy_u32Ticks , void (*Copy_ptr )(void) )
 {
+	/*Stop Timer*/
+	CLR_BIT(MSTK->STK_CTRL , ENABLE_BIT );
+	MSTK->STK_LOAD = 0 ;
+	MSTK->STK_VAL  = 0 ;
+	
 	/*Load Ticks to Load register */
 	MSTK->STK_LOAD = Copy_u32Ticks ;
 	
@@ -67,6 +72,7 @@ void MSTK_voidSetIntervalSingle  ( u32 Copy_u32Ticks , void (*Copy_ptr )(void) )
 
 void MTSK_voidSetIntervalPeriodic( u32 Copy_u32Ticks , void (*Copy_ptr )(void))
 {
+	
     /*Load Ticks to Load register */
 	MSTK->STK_LOAD = Copy_u32Ticks ;
 	

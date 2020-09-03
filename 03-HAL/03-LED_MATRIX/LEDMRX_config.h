@@ -26,5 +26,4 @@
 #define LED_MRX_COL7_PIN   GPIOB,10
 
 
-
 #endif
