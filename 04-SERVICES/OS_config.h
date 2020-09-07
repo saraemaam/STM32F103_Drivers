@@ -7,6 +7,7 @@
 #define OS_CONFIG_H
 
 
+#define NUMBER_OF_TASKS    3
 
 
 

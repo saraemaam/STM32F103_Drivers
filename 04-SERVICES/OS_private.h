@@ -6,6 +6,14 @@
 #ifndef OS_PRIVATE_H
 #define OS_PRIVATE_H
 
+typedef struct {
+	u16 Periodicity  ;
+	void (*Fptr)(void);
+}Task;
+
+
+Static Task OS_Tasks[NUMBER_OF_TASKS] = {NULL} ;
+static void Scheduler (void );
 
 
 
