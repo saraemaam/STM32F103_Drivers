@@ -6,10 +6,18 @@
 #ifndef OS_PRIVATE_H
 #define OS_PRIVATE_H
 
+#define 
+#define 
+#define 
+
+
+
+
 typedef struct {
 	u16 Periodicity  ;
 	void (*Fptr)(void);
 	u8 firstDelay ;
+	u8 state      ;
 }Task;
 
 
