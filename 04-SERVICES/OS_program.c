@@ -10,9 +10,11 @@
 #include"OS_private.h"
 #include"OS_config.h"
 
+#define NULL   (void*)0
 /*Array of structure Array of Tasks */
+static Task OS_Tasks[NUMBER_OF_TASKS] = { NULL } ;
 
-#define NULL        (void*)0
+
 
 
 

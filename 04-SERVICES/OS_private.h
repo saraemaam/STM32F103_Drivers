@@ -9,10 +9,11 @@
 typedef struct {
 	u16 Periodicity  ;
 	void (*Fptr)(void);
+	u8 firstDelay ;
 }Task;
 
 
-Static Task OS_Tasks[NUMBER_OF_TASKS] = {NULL} ;
+
 static void Scheduler (void );
 
 

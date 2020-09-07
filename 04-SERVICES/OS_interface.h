@@ -7,7 +7,7 @@
 #define OS_INTERFACE_H
 
 
-void SOS_voidCreateTask (u8 Copy_u8Id , u16 Copy_u16Periodicity , void (*Ptr)(void) );
+void SOS_voidCreateTask (u8 Copy_u8Id , u16 Copy_u16Periodicity , void (*Ptr)(void) , u8 Copy_u8firstDelay );
 void SOS_voidStart(void);
 void SOS_voidDeleteTask();
 void SOS_voidPauseTask();
