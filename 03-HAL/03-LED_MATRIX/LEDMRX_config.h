@@ -1,12 +1,11 @@
 /*****************************************/
-/* Author  :  Sarah Emam                */
+/* Author  :  Sarah Abuzaid              */
 /* Version :  V01                        */
 /* Date    : 31 August 2020              */
 /*****************************************/
 #ifndef LEDMRX_CONFIG_H
 #define LEDMRX_CONFIG_H
 
-/*Please write pin pair port pin  */
 #define LED_MRX_ROW0_PIN   GPIOA,0
 #define LED_MRX_ROW1_PIN   GPIOA,1
 #define LED_MRX_ROW2_PIN   GPIOA,2
