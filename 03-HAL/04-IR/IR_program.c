@@ -18,7 +18,7 @@ volatile u8   u8Data            = 0;
 
 void (*IR_CallBack)(u8 Key);
 
-void voidGetFrame(void){
+void HIR_voidGetFrame(void){
 	if (u8StartFlag == 0)
 	{
 		/*First falling edge*/
@@ -36,7 +36,7 @@ void voidGetFrame(void){
 	
 }
 
-void voidTakeAction(void)
+void HIR_voidTakeAction(void)
 {
 	u8 i;
 	u8Data = 0;
@@ -69,7 +69,7 @@ void voidTakeAction(void)
 	u8EdgeCounter   = 0;
 }
 
-void IR_voidSetCallBackFunction (void (*ptr)(u8 KeyPressed)){
+void HIR_voidSetCallBackFunction (void (*ptr)(u8 KeyPressed)){
 	IR_CallBack = ptr ;
 	
 	

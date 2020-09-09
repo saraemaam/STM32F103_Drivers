@@ -30,9 +30,9 @@
 
 
 
-void voidGetFrame(void);
-void voidTakeAction(void);
-void IR_voidSetCallBackFunction (void (*ptr)(u8 KeyPressed));
+void HIR_voidGetFrame(void);
+void HIR_voidTakeAction(void);
+void HIR_voidSetCallBackFunction (void (*ptr)(u8 KeyPressed));
 
 
 
