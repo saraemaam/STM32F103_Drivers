@@ -29,6 +29,7 @@
 /*First method*/
 #define RCC_PLL_MUL_VAL  4
 
+#endif
 /*Second method*/
 /* Options : PLL_INPUT_CLOCK_MUL_2 
              PLL_INPUT_CLOCK_MUL_3
@@ -49,10 +50,6 @@
 #if RCC_CLOCK_TYPE == RCC_PLL
 /*Second method*/
 #define PLL_INPUT_CLOCK_MUL   PLL_INPUT_CLOCK_MUL_2
-
-  
-
-
 
 
 #endif
